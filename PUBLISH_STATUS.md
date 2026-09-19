@@ -1,18 +1,16 @@
 # Publish status — prompt-budget-check
 
-**Updated:** 2026-09-19 ~07:24 SAST (Africa/Johannesburg)
+**Updated:** 2026-09-19 (docs funnel on `main`)
 
-## GitHub — DONE
+## GitHub — DONE (code)
 
 | Item | Value |
 |------|--------|
 | Repo | https://github.com/TwiztedFX/prompt-budget-check |
-| Visibility | **PUBLIC** (free; no paid GitHub features) |
+| Visibility | **PUBLIC** |
 | Default branch | `main` |
-| Commit | `b6e8a8e` — feat: initial MIT release of prompt-budget-check |
-| Auth | `gh` as **TwiztedFX** (scopes: gist, read:org, repo) |
-| Topics | cli, llm, prompt, agents, mit |
-| README CTA | Present — https://www.pragmex-agentics.com/contact |
+| Latest docs commit | `34bfed3` — plain-English README + SHOW_HN.md |
+| README CTA | https://www.pragmex-agentics.com/contact |
 
 Clone:
 
@@ -20,24 +18,30 @@ Clone:
 git clone https://github.com/TwiztedFX/prompt-budget-check.git
 ```
 
+## Topics / DESCRIPTION — Ash one-liner (API 403 from this agent)
+
+GitHub App token can **push** `main` but cannot PATCH repo metadata. Run locally as TwiztedFX:
+
+```bash
+gh repo edit TwiztedFX/prompt-budget-check \
+  --description "Stop AI prompts from getting too long. Tiny MIT CLI: estimate tokens and fail CI when over budget." \
+  --homepage "https://www.pragmex-agentics.com/contact" \
+  --add-topic cli --add-topic llm --add-topic prompt --add-topic agents --add-topic mit \
+  --add-topic openai --add-topic anthropic --add-topic github-actions --add-topic ci \
+  --add-topic tokens --add-topic prompt-engineering --add-topic nodejs
+```
+
+**DESCRIPTION to paste in the GitHub UI if you prefer:**  
+Stop AI prompts from getting too long. Tiny MIT CLI: estimate tokens and fail CI when over budget.
+
+**Website:** https://www.pragmex-agentics.com/contact
+
 ## npm — SKIPPED
 
-| Check | Result |
-|-------|--------|
-| `npm whoami` | `ENEEDAUTH` — not logged in on this box |
-| Action | **Skipped** — no `npm login` / paid org required for Ash free path |
-| Rationale | GitHub public MIT repo is enough for now; npm can follow when Ash authenticates free npm |
-
-Do **not** run `npm publish` from agents until Ash confirms free npm auth.
-
-## Preflight passed before push
-
-- Secrets scan: clean (only the example `rg` line in `PUBLISH.md`)
-- `npm test`: All tests passed
-- Example CLI: OK under budget 200
+Not logged in on this box. GitHub public MIT repo is enough until Ash runs `npm login`.
 
 ## Explicitly not done
 
 - npm publish
-- Ignition / any paid GitHub or npm features
+- Any paid GitHub or npm features
 - Spend of any kind
