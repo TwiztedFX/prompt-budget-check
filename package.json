@@ -1,0 +1,45 @@
+{
+  "name": "prompt-budget-check",
+  "version": "0.1.0",
+  "description": "Tiny CLI to estimate prompt token budgets and fail CI when over limit. Zero dependencies.",
+  "license": "MIT",
+  "author": "Pragmex Agentics <studio@pragmex-agentics.com>",
+  "homepage": "https://www.pragmex-agentics.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TwiztedFX/prompt-budget-check.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TwiztedFX/prompt-budget-check/issues"
+  },
+  "keywords": [
+    "prompt",
+    "tokens",
+    "budget",
+    "llm",
+    "agent",
+    "cli",
+    "ci",
+    "openai",
+    "anthropic"
+  ],
+  "type": "commonjs",
+  "main": "lib/index.js",
+  "bin": {
+    "prompt-budget-check": "bin/prompt-budget-check.js"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node test/run.js",
+    "start": "node bin/prompt-budget-check.js",
+    "check:example": "node bin/prompt-budget-check.js examples/sample-prompt.txt --budget 200"
+  }
+}
