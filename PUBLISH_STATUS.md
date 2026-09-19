@@ -1,6 +1,6 @@
 # Publish status — prompt-budget-check
 
-**Updated:** 2026-09-19 (docs funnel on `main`)
+**Updated:** 2026-09-19 (distribution: CONTRIBUTING, CI workflow, Sponsors file)
 
 ## GitHub — DONE (code)
 
@@ -40,8 +40,13 @@ Stop AI prompts from getting too long. Tiny MIT CLI: estimate tokens and fail CI
 
 Not logged in on this box. GitHub public MIT repo is enough until Ash runs `npm login`.
 
+## GitHub Sponsors
+
+`.github/FUNDING.yml` lists `TwiztedFX`. Enabling payouts needs Ash in the GitHub UI (free). Click path: `docs/github-sponsors-setup.md`. Not done by this agent (no owner session).
+
 ## Explicitly not done
 
 - npm publish
+- Turning on GitHub Sponsors (owner identity + Stripe)
 - Any paid GitHub or npm features
 - Spend of any kind

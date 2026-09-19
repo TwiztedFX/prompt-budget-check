@@ -1,0 +1,27 @@
+# Copy into YOUR repo as .github/workflows/prompt-budget.yml
+# No secrets. Point --budget and the file path at your own prompt.
+# Need a CI pack for many repos? https://www.pragmex-agentics.com/contact
+# Free checklist and this tool: https://www.pragmex-agentics.com/resources
+
+name: Prompt budget
+
+on:
+  push:
+    paths:
+      - 'prompts/**'
+      - '.github/workflows/prompt-budget.yml'
+  pull_request:
+    paths:
+      - 'prompts/**'
+      - '.github/workflows/prompt-budget.yml'
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Fail if the system prompt is over budget
+        run: npx --yes prompt-budget-check@0.1.0 ./prompts/system.txt --budget 2500

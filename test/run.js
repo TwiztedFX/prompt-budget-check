@@ -41,6 +41,12 @@ const parsed = JSON.parse(r.stdout);
 assert.strictEqual(parsed.ok, true);
 assert.ok(parsed.tokens > 0);
 
+// CLI: help lists paid + free URLs (no secrets)
+r = spawnSync(process.execPath, [bin, '--help'], { encoding: 'utf8' });
+assert.strictEqual(r.status, 0);
+assert.match(r.stdout, /pragmex-agentics\.com\/contact/);
+assert.match(r.stdout, /pragmex-agentics\.com\/resources/);
+
 // CLI: version
 r = spawnSync(process.execPath, [bin, '--version'], { encoding: 'utf8' });
 assert.strictEqual(r.status, 0);

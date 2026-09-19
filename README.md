@@ -59,12 +59,18 @@ node bin/prompt-budget-check.js examples/sample-prompt.txt --budget 200
 
 You should see a short report: OK or OVER BUDGET, plus the guessed token count.
 
-**In GitHub Actions:**
+**In GitHub Actions:** full copy-paste file is [examples/github-actions.yml](examples/github-actions.yml). Short form:
 
 ```yaml
+- uses: actions/checkout@v4
+- uses: actions/setup-node@v4
+  with:
+    node-version: '20'
 - name: Prompt budget gate
-  run: npx prompt-budget-check ./prompts/system.txt --budget 2500
+  run: npx --yes prompt-budget-check@0.1.0 ./prompts/system.txt --budget 2500
 ```
+
+This repo runs the same idea on itself in [.github/workflows/ci.yml](.github/workflows/ci.yml) (`npm test`, then sample must pass and fat must fail).
 
 **Pipe from stdin:**
 
@@ -98,9 +104,15 @@ if (!result.ok) process.exit(1);
 
 This free tool is the **small end**. If you need exact counts, a CI pack for many repos, or **paid help to automate three real jobs** in your business (intake → sort → humans only on the messy cases), start here:
 
-**[Contact Pragmex](https://www.pragmex-agentics.com/contact)** → https://www.pragmex-agentics.com/contact
+**[Contact](https://www.pragmex-agentics.com/contact)** — written assessment by email (not a live call): https://www.pragmex-agentics.com/contact
+
+**[Resources](https://www.pragmex-agentics.com/resources)** — free checklist and the rest of the shelf: https://www.pragmex-agentics.com/resources
 
 We build the bigger system around the prompts. This CLI only keeps the prompts from getting fat.
+
+Optional GitHub Sponsors (when the owner has enrolled): [https://github.com/sponsors/TwiztedFX](https://github.com/sponsors/TwiztedFX). Setup is free and owner-only — [docs/github-sponsors-setup.md](docs/github-sponsors-setup.md).
+
+How to contribute: [CONTRIBUTING.md](CONTRIBUTING.md). Example prompts and CI: [examples/README.md](examples/README.md).
 
 ---
 

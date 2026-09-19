@@ -1,0 +1,30 @@
+# This repo’s own CI. Consumer copy-paste lives in examples/github-actions.yml
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test-and-budget:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Unit and CLI tests
+        run: npm test
+      - name: Sample prompt stays under budget
+        run: node bin/prompt-budget-check.js examples/sample-prompt.txt --budget 200
+      - name: Fat prompt is caught (exit 1 required)
+        run: |
+          set +e
+          node bin/prompt-budget-check.js examples/fat-prompt.txt --budget 50
+          status=$?
+          set -e
+          if [ "$status" -ne 1 ]; then
+            echo "Expected over-budget exit 1, got $status"
+            exit 1
+          fi

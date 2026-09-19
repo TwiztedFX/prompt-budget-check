@@ -29,6 +29,8 @@ Exit codes:
 
 Paid hardening / custom features / studio Package B:
   https://www.pragmex-agentics.com/contact
+Free tools and checklist:
+  https://www.pragmex-agentics.com/resources
 `.trim();
 
 function parseArgs(argv) {
