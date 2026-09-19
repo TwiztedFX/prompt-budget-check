@@ -1,7 +1,7 @@
 {
   "name": "prompt-budget-check",
   "version": "0.1.0",
-  "description": "Tiny CLI to estimate prompt token budgets and fail CI when over limit. Zero dependencies.",
+  "description": "Stop AI prompts from getting too long. Tiny MIT CLI: estimate tokens and fail CI when over budget. Zero dependencies.",
   "license": "MIT",
   "author": "Pragmex Agentics <studio@pragmex-agentics.com>",
   "homepage": "https://www.pragmex-agentics.com",
@@ -21,7 +21,9 @@
     "cli",
     "ci",
     "openai",
-    "anthropic"
+    "anthropic",
+    "github-actions",
+    "prompt-engineering"
   ],
   "type": "commonjs",
   "main": "lib/index.js",

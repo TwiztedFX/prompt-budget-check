@@ -1,107 +1,109 @@
 # prompt-budget-check
 
-**Tiny, MIT-licensed CLI** that estimates prompt token budgets and fails CI when a prompt file is over limit.
+**Stop your AI prompts from getting too long.**
 
-Zero npm dependencies. Node 18+.
+When you give ChatGPT (or any similar tool) a big instruction file, that file costs money and can make answers slower. This tiny program **counts how big the file is** and **fails your build** if it is over a limit you choose.
 
-Useful for agentic / LLM apps where system prompts quietly bloat until latency and cost spike.
+Free. MIT license. No extra packages. Needs Node 18+.
 
 ```bash
 npx prompt-budget-check prompts/system.txt --budget 2000
-# or locally:
-node bin/prompt-budget-check.js prompts/system.txt --budget 2000
 ```
 
-Exit code `0` = under budget · `1` = over budget · `2` = read error.
+Under the limit → exit `0`. Over the limit → exit `1`. Can’t read the file → exit `2`.
 
 ---
 
-## Install (local / publish-ready)
+## What it does (plain English)
+
+1. You save your AI instructions in a text file.
+2. You pick a max size (a “budget”), like `2000`.
+3. The tool guesses how many tokens that file uses. (A token is a small chunk of text. This guess is **rough on purpose** — fast, no secret keys, good enough to catch bloat.)
+4. If the file is too big, CI turns red so the prompt cannot sneak into production.
+
+That’s it. It is a **speed bump**, not a full tokenizer.
+
+---
+
+## Install
+
+**Try it with no install:**
 
 ```bash
-# from this package root
-npm install -g .          # optional global link
-npm link                  # or link for local bin
-npm test                  # run self-tests
-npm run check:example     # demo on examples/sample-prompt.txt
+npx prompt-budget-check ./examples/sample-prompt.txt --budget 200
 ```
 
-After npm publish (see `PUBLISH.md`):
+**Install for real (after the package is on npm, or from this folder):**
 
 ```bash
 npm i -g prompt-budget-check
-prompt-budget-check ./my-prompt.md --budget 1500
+# or from a clone of this repo:
+npm install -g .
+```
+
+**Run the built-in tests:**
+
+```bash
+npm test
 ```
 
 ---
 
-## Usage
+## Example
+
+Sample prompt in this repo:
 
 ```bash
-prompt-budget-check <file> [--budget N] [--heuristic chars4|words13|max] [--model NAME] [--json]
-cat prompt.txt | prompt-budget-check --stdin --budget 2000
+node bin/prompt-budget-check.js examples/sample-prompt.txt --budget 200
 ```
 
-| Flag | Meaning |
-|------|---------|
-| `--budget <n>` | Max allowed tokens (default `4096`) |
-| `--heuristic` | `chars4` (len/4), `words13` (words×1.3), or `max` of both (default) |
-| `--model` | Soft hint: `gpt-4`, `gpt-4o`, `claude-3`, `claude-3.5`, `gemini-1.5` |
-| `--json` | Print machine-readable report |
-| `--stdin` | Read prompt from stdin |
+You should see a short report: OK or OVER BUDGET, plus the guessed token count.
 
-### CI example (GitHub Actions)
+**In GitHub Actions:**
 
 ```yaml
 - name: Prompt budget gate
   run: npx prompt-budget-check ./prompts/system.txt --budget 2500
 ```
 
-### Library use
+**Pipe from stdin:**
+
+```bash
+cat prompt.txt | prompt-budget-check --stdin --budget 2000
+```
+
+**Flags**
+
+| Flag | Meaning |
+|------|---------|
+| `--budget <n>` | Max allowed tokens (default `4096`) |
+| `--heuristic` | `chars4` (length ÷ 4), `words13` (words × 1.3), or `max` of both (default) |
+| `--model` | Soft hint: `gpt-4`, `gpt-4o`, `claude-3`, `claude-3.5`, `gemini-1.5` |
+| `--json` | Print a JSON report |
+| `--stdin` | Read from a pipe instead of a file |
+
+**Use it from JavaScript:**
 
 ```js
-const { checkBudget, estimateTokens } = require('prompt-budget-check');
+const fs = require('fs');
+const { checkBudget } = require('prompt-budget-check');
+
 const result = checkBudget(fs.readFileSync('prompt.txt', 'utf8'), { budget: 2000 });
 if (!result.ok) process.exit(1);
 ```
 
 ---
 
-## What this is / is not
+## Want this to do more? Talk to Pragmex.
 
-| Is | Is not |
-|----|--------|
-| Fast CI gate with approximate counts | Exact tiktoken / Anthropic tokenizer |
-| Dependency-free scaffold | Full prompt ops platform |
-| Funnel to paid hardening | Free commercial support SLA |
+This free tool is the **small end**. If you need exact counts, a CI pack for many repos, or **paid help to automate three real jobs** in your business (intake → sort → humans only on the messy cases), start here:
 
-Estimates are intentionally simple. For production-grade tokenizers, multi-model budgets, monorepo prompt lint, or agentic platform builds — **inquire with the studio**.
+**[Contact Pragmex](https://www.pragmex-agentics.com/contact)** → https://www.pragmex-agentics.com/contact
 
----
-
-## Paid support & studio inquire
-
-Built by **[Pragmex Agentics](https://www.pragmex-agentics.com)** — agentic platform design studio (Umhlanga; US/EU/SA operators).
-
-| Need | Path |
-|------|------|
-| Paid hardening of this tool (real tokenizers, CI templates) | [Contact](https://www.pragmex-agentics.com/contact) |
-| Custom feature / monorepo prompt lint | [Contact](https://www.pragmex-agentics.com/contact) |
-| Full agentic platform build (Package B) | [Contact](https://www.pragmex-agentics.com/contact) |
-
-**CTA only:** Inquire / Start a conversation / Contact the studio → https://www.pragmex-agentics.com/contact
-
-See `monetization.md` for the free OSS → paid support → Package B ladder.
+We build the bigger system around the prompts. This CLI only keeps the prompts from getting fat.
 
 ---
 
 ## License
 
 MIT © 2026 Pragmex Agentics
-
----
-
-## Maintainers
-
-- Intended GitHub org/user: **TwiztedFX** (or Cursor Origin) — see `PUBLISH.md`
-- Do not push secrets. Prefer public MIT repo; npm publish optional.

@@ -36,7 +36,11 @@ gh repo create TwiztedFX/prompt-budget-check --public --source=. --remote=origin
 
 # Topics for discovery
 gh repo edit TwiztedFX/prompt-budget-check \
-  --add-topic cli --add-topic llm --add-topic prompt --add-topic agents --add-topic mit
+  --description "Stop AI prompts from getting too long. Tiny MIT CLI: estimate tokens and fail CI when over budget." \
+  --homepage "https://www.pragmex-agentics.com/contact" \
+  --add-topic cli --add-topic llm --add-topic prompt --add-topic agents --add-topic mit \
+  --add-topic openai --add-topic anthropic --add-topic github-actions --add-topic ci \
+  --add-topic tokens --add-topic prompt-engineering --add-topic nodejs
 ```
 
 Update `package.json` `repository.url` if the final owner/name differs.
